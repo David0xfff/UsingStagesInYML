@@ -7,21 +7,51 @@ pool:
   vmImage: 'ubuntu-latest'
 
 stages:
+# Etapa de Build
 - stage: Build
+  displayName: 'Compilación'
   jobs:
   - job: BuildJob
+    displayName: 'Job de compilación'
     steps:
-    - script: echo Building!
+    - script: echo "Restaurando dependencias..."
+      displayName: 'Restaurar dependencias'
+    - script: echo "Compilando el código..."
+      displayName: 'Compilar proyecto'
+    - script: echo "Generando artefactos..."
+      displayName: 'Publicar artefactos'
+
+# Etapa de Test
 - stage: Test
+  displayName: 'Pruebas'
+  dependsOn: Build
   jobs:
-  - job: TestOnWindows
-    steps:
-    - script: echo Testing on Windows!
   - job: TestOnLinux
+    displayName: 'Pruebas en Linux'
+    pool:
+      vmImage: 'ubuntu-latest'
     steps:
-    - script: echo Testing on Linux!
+    - script: echo "Ejecutando pruebas unitarias en Linux..."
+      displayName: 'Tests Linux'
+
+  - job: TestOnWindows
+    displayName: 'Pruebas en Windows'
+    pool:
+      vmImage: 'windows-latest'
+    steps:
+    - script: echo "Ejecutando pruebas unitarias en Windows..."
+      displayName: 'Tests Windows'
+
+# Etapa de Deploy
 - stage: Deploy
+  displayName: 'Despliegue'
+  dependsOn: Test
+  condition: succeeded()
   jobs:
   - job: Deploy
+    displayName: 'Job de despliegue'
     steps:
-    - script: echo Deploying the code!
+    - script: echo "Descargando artefactos..."
+      displayName: 'Descargar artefactos'
+    - script: echo "Desplegando aplicación..."
+      displayName: 'Desplegar aplicación'
