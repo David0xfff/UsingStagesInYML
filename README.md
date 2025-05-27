@@ -1,5 +1,5 @@
 
-Este archivo describe el funcionamiento del pipeline definido en YAML para la integración y entrega continua (CI/CD) de un proyecto. El pipeline se ejecuta automáticamente cuando hay cambios en la rama `main`.
+Este archivo azure-pipelines.yml describe el funcionamiento del pipeline definido en YAML para la integración y entrega continua (CI/CD) de un proyecto. El pipeline se ejecuta automáticamente cuando hay cambios en la rama `main`.
 
 ---
 
