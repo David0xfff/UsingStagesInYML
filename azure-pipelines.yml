@@ -24,7 +24,6 @@ stages:
 # Etapa de Test
 - stage: Test
   displayName: 'Pruebas'
-  dependsOn: Build
   jobs:
   - job: TestOnLinux
     displayName: 'Pruebas en Linux'
@@ -45,8 +44,6 @@ stages:
 # Etapa de Deploy
 - stage: Deploy
   displayName: 'Despliegue'
-  dependsOn: Test
-  condition: succeeded()
   jobs:
   - job: Deploy
     displayName: 'Job de despliegue'
